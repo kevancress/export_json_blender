@@ -68,6 +68,7 @@ class ExportJSON(Operator, ImportHelper):
         jsonStr = "{"
         for obj in objs:
             mesh = obj.data
+            mat = obj.matrix_world
             verts = mesh.vertices
             jsonStr += "\n \"" + obj.name + '\":'
             
@@ -75,7 +76,7 @@ class ExportJSON(Operator, ImportHelper):
             for vert in verts:
 
                 jsonStr += "\n \t {"
-                coord = vert.co
+                coord = mat @ vert.co
                 jsonStr += "\"x\":" + str(coord[0]) + ', '
                 jsonStr += "\"y\":" + str(coord[1])  + ', '
                 jsonStr += "\"z\":" + str(coord[2])
